@@ -4,13 +4,14 @@ https://docs.nestjs.com/
 
 #### Objectives
 Generate and use migrations instead of syncing database. In dev and prod.
+This is the recommended method by TypeORM once you have data on prod, to avoid any loss.
 
 #### Pre-requisites
 TypeORM installed: https://docs.nestjs.com/techniques/database
 
 #### Install
 
-src/app.module.ts
+> src/app.module.ts
 ```ts
 import { DynamicModule, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -38,7 +39,7 @@ export class AppModule {}
 ```
 
 
-src/ormconfig.ts
+> src/ormconfig.ts
 ```ts
 import {ConnectionOptions} from 'typeorm';
 
@@ -85,7 +86,7 @@ export = config;
 ```
 
 
-package.json
+> package.json
 ```json
 "scripts": {
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --config src/ormconfig.ts",
@@ -96,7 +97,7 @@ package.json
 
 #### Usage
 1. `npm run typeorm:migrate <myEntity-migration>`
-2. Check your migration queries in `src/migrations`.
+2. Check your migration queries in `src/migrations`
 3. `npm run start:dev` or `npm run start:prod` or `npm run typeorm:run`
 
 If everything went well, you have up to date entites and a `migrations` table listing applied migrations.
@@ -106,5 +107,5 @@ If everything went well, you have up to date entites and a `migrations` table li
 - If you do not set `--config` parameter typeorm seek a valid configuration file at the root of the project.
 - You do not want `ormconfig.ts` at the root of the project, otherwise it change /dist structure, you would have to change `start:prod: node dist/main.js` to `start:prod: node dist/src/main.js`.
 
-@SeeAlso https://github.com/typeorm/typeorm/blob/master/docs/migrations.md
-@SeeAlso https://github.com/typeorm/typeorm/blob/master/docs/using-cli.md#notes-on-entity-files-written-in-typescript
+@SeeAlso https://github.com/typeorm/typeorm/blob/master/docs/migrations.md  
+@SeeAlso https://github.com/typeorm/typeorm/blob/master/docs/using-cli.md#notes-on-entity-files-written-in-typescript  
