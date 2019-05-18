@@ -13,7 +13,9 @@ export function DatabaseOrmModule(): DynamicModule {
 
 @Module({
   imports: [
-    DatabaseOrmModule(),
+    TypeOrmModule.forRoot(ormconfig)
+    // or
+    // DatabaseOrmModule(),
   ],
   controllers: [AppController],
   providers: [AppService],
