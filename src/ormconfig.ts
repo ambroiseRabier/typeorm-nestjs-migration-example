@@ -7,7 +7,6 @@ import {ConnectionOptions} from 'typeorm';
 // You can also make a singleton service that load and expose the .env file content.
 // ...
 
-console.log(__dirname);
 
 // Check typeORM documentation for more information.
 const config: ConnectionOptions = {

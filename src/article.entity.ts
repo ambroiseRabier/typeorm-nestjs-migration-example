@@ -11,4 +11,6 @@ export class Article {
   @Column({default: 0})
   rating: number;
 
+  @Column()
+  description: string;
 }
