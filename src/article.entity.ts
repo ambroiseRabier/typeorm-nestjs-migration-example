@@ -8,4 +8,7 @@ export class Article {
   @Column()
   name: string;
 
+  @Column({default: 0})
+  rating: number;
+
 }

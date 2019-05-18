@@ -7,6 +7,8 @@ import {ConnectionOptions} from 'typeorm';
 // You can also make a singleton service that load and expose the .env file content.
 // ...
 
+console.log(__dirname);
+
 // Check typeORM documentation for more information.
 const config: ConnectionOptions = {
   type: 'postgres',
@@ -27,7 +29,9 @@ const config: ConnectionOptions = {
   logger: 'file',
 
   // allow both start:prod and start:dev to use migrations
-  migrations: ['dist/migrations/**/*.js', 'src/migrations/**/*.ts'],
+  // __dirname is either dist or src folder, meaning either
+  // the compiled js in prod or the ts in dev
+  migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
   cli: {
     migrationsDir: 'src/migrations',
   },
