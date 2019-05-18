@@ -1,28 +1,19 @@
-import { Module } from '@nestjs/common';
+import { DynamicModule, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as ormconfig from './ormconfig';
+
+export function DatabaseOrmModule(): DynamicModule {
+  // we could load the configuration from dotEnv here,
+  // but typeORM cli would not be able to find the configuration file.
+
+  return TypeOrmModule.forRoot(ormconfig);
+}
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'pwd',
-      database: 'migrationExample',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: false,
-      migrationsRun: true,
-      logging: true,
-      logger: 'file',
-      // allow both start:prod and start:dev to use migrations
-      migrations: ['dist/migrations/**/*.js', 'src/migrations/**/*.ts'],
-      cli: {
-        migrationsDir: 'src/migrations',
-      },
-    }),
+    DatabaseOrmModule(),
   ],
   controllers: [AppController],
   providers: [AppService],
